@@ -2,326 +2,440 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="/images/fav.png" type="image/x-icon">
-  <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-  <!-- AOS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-  <!-- Glidejs -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.css" />
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="./styles.css" />
-  <title>Vaskar - Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vaskar Chakma - Academic Portfolio">
+    <meta name="author" content="Vaskar Chakma">
+    <title>Vaskar Chakma</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <header id="header" class="header">
-    <!-- Navigation -->
-    <div class="navigation">
-      <nav class="nav d-flex container">
-        <div class="nav-header d-flex">
-          <div class="logo" style="font-family:'Courier New', Courier, monospace">
-            <h1>V<span>A</SPAN>S<span>U</span></h1>
-          </div>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
-          <div class="hamburger"><i class="fas fa-bars"></i></div>
-        </div>
-
-        <div class="nav-menu d-flex">
-          <ul class="nav-list d-flex">
-            <li class="nav-item">
-              <a href="/" class="nav-link">Home</a>
-            </li>
-
-            <li class="nav-item">
-              <a href="https://vaskarchakma.github.io/hsknest/" class="nav-link scroll-link">Services</a>
-            </li>
-
-            <li class="nav-item">
-              <a href="#portfolio" class="nav-link scroll-link">Activity</a>
-            </li>
-
-            <li class="nav-item">
-              <a href="#contact" class="nav-link scroll-link">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-
-    <!-- Hero Content -->
-    <div class="hero container">
-      <h2><span>Vaskar Chakma</span> welcomes you here.</h2>
-      <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 20px;" >
-        An IT Stalking Horse! 
-      </p>
-
-      <div class="btn-group">
-        <a href="Vaskar Chakma Euro.pdf" class="btn btn2">Let`s Work Together</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- About Section -->
-  <section class="section about" id="about">
-    <div class="about-center container">
-      <div class="left" data-aos="fade-right" data-aos-duration="2000">
-        <div class="subtitle">EDUCATION is all about EDUCATE THYSELF!</div> <br>
-        <p>
-          From a Boy to a Man, being raised up from a marginalized Chakma community completed his Higher Secondary in Science from Rangamati Government College. Currently enrolled at Nantong University as an Undergrad student of Computer Science. 
-          
-        </p>
-        <p class="top">
-          Open to higher studies and research opportunities. My research interests are Machine learning,
-          Artificial Intelligence, and Cyber Security.
-
-          Besides, I like to travel. I believe traveling gives you a new perspective on everything. You get to know a
-          lot about the different cultures, the cuisines, their history, the language and all the small unique things
-          every place has to offer.
-        </p>
-<!-- 
-        <div class="count">
-          <div class="count-1">
-            <span>10+</span>
-            <p>Clients worldwide</p>
-          </div>
-          <div class="count-2">
-            <span>5+</span>
-            <p>Awards</p>
-          </div>
-          <div class="count-3">
-            <span>640</span>
-            <p>Hours worked</p>
-          </div>
-        </div>
-        -->
-      </div>
-      
-      <div class="right" data-aos="fade-left" data-aos-duration="2000">
-        <img src="vaskarchakma.png" alt="" />
-      </div>
-    </div>
-  </section>
-  
-
-  <!-- Portfolio -->
-
-  <section class="section portfolio" id="portfolio">
-    <div class="portfolio-center container">
-      <div class="top">
-        <h2 class="title">Activities</h2>
-      </div>
-
-      <div class="portfolio-container">
-        <div class="single" data-aos="fade-down" data-aos-duration="2000">
-          <img src="./images/work1.png" alt="" />
-          <div class="overlay">
-            <div class="details">
-              <h3>HSKNEST - Chinese Learning Platform</h3>
-              <div class="btn-group">
-                <a href="https://vaskarchakma.github.io/hsknest/"><i class="fas fa-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="single" data-aos="fade-right" data-aos-duration="2000">
-          <img src="./images/work2.png" alt="" />
-          <div class="overlay">
-            <div class="details">
-              <h3>Learn With MV - A Teaching Platform</h3>
-              <div class="btn-group">
-                <a href="https://vaskarchakma.github.io/learnwithmv/"><i class="fas fa-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="single" data-aos="fade-left" data-aos-duration="2000">
-          <img src="./images/work3.png" alt="" />
-          <div class="overlay">
-            <div class="details">
-              <h3>RhuVaGa- A name of Inspiration</h3>
-              <div class="btn-group">
-                <a href="https://vaskarchakma.github.io/RhuVaGa/index.html"><i class="fas fa-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="single" data-aos="flip-up" data-aos-duration="2000">
-          <img src="./images/work4.png" alt="" />
-          <div class="overlay">
-            <div class="details">
-              <h3>Infinity Hub - An Online Shopping Web</h3>
-              <div class="btn-group">
-                <a href="https://infinityhub-website--vaskarchakma.repl.co/"><i class="fas fa-link"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Blog -->
-  <section class="section blog" id="blog">
     <div class="container">
-      <div class="top">
-        <div class="subtitle">Learn with CoderExpert</div>
-        <h2 class="title">Blog</h2>
-        <p>
-          Want to stay up to date with latest programming worlds newses, don't
-          worry. Follow blog & i hope you`ll learn most of the thing you
-          need.
-        </p>
-      </div>
+        <header>
+            <div class="header-content">
+                <h1>Vaskar Chakma <span class="chinese-name">(𑄞𑄥𑄳𑄇𑄴𑄧𑄢𑄴 𑄌𑄋𑄴𑄟), (李小龙), (봉수민)</span></h1>
+                <p class="title">Master's-Ph.D. Joint Degree Student</p>
+                <p class="affiliation">Department of Computer Science and Engineering (Big Data)</p>
+                <p class="affiliation">College of Software, Chung-Ang University</p>
+                <p class="affiliation">Seoul, Republic of Korea</p>
+                <div class="contact-links">
+                    <p class="email">Email: <a href="mailto:vaskarchakma7@gmail.com">vaskarchakma7@gmail.com</a> | <a
+                            href="mailto:vaskar@cau.ac.kr">vaskar@cau.ac.kr</a></p>
+                    <div class="social-links">
+                        <a href="https://scholar.google.com/citations?hl=en&user=aE4O5HUAAAAJ" target="_blank">Google
+                            Scholar</a>
+                        <a href="https://orcid.org/0009-0003-3039-3175" target="_blank">ORCiD</a>
+                        <a href="https://www.researchgate.net/profile/Vaskar-Chakma" target="_blank">ResearchGate</a>
+                        <a href="https://www.linkedin.com/in/vaskar-chakma/" target="_blank">LinkedIn</a>
+                        <a href="https://www.facebook.com/home.vaskar" target="_blank">Facebook</a>
+                        <a href="https://www.instagram.com/vaskar_changma/" target="_blank">Instagram</a>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav id="navbar" class="navbar">
+            <div class="nav-wrapper">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#publications" class="nav-link">Publications</a>
+                <a href="#conferences" class="nav-link">Conferences</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </nav>
+
+        <main>
+            <section id="about">
+                <h2>About Me</h2>
+                <div class="content-wrapper">
+                    <p>
+                        I am currently pursuing a Master's-Ph.D. Joint Degree in Computer Science and Engineering (Big
+                        Data)
+                        at Chung-Ang University, Seoul, Republic of Korea. I serve as a Research Assistant in the
+                        <a href="https://inl.cau.ac.kr/member#h.tdnt75ttjgkr" target="_blank">Intelligent Networking Lab
+                            (INL)</a>
+                        and Teaching Assistant in the Department of CSE at CAU.
+                    </p>
+                    <p>
+                        Beyond academics, I’m deeply committed to fostering cultural diversity and inclusion
+                        through volunteer work and community leadership. These experiences have strengthened my ability
+                        to work collaboratively and lead with empathy and purpose. If you’re looking to collaborate with
+                        someone passionate about innovation and continuous
+                        learning, I’d love to connect.
+                    </p>
+
+                    <h3>Research Interests</h3>
+                    <div class="research-interests">
+                        <span class="interest-tag">Machine Learning</span>
+                        <span class="interest-tag">Artificial Intelligence</span>
+                        <span class="interest-tag">Big Data Analytics</span>
+                        <span class="interest-tag">Medical AI</span>
+                        <span class="interest-tag">Wireless Networking</span>
+                        <span class="interest-tag">RF Based Human Sensing</span>
+                        <span class="interest-tag">Explainable AI</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="education">
+                <h2>Education</h2>
+                <div class="content-wrapper">
+                    <div class="education-item">
+                        <div class="edu-header">
+                            <div>
+                                <div class="pub-title">Master's-Ph.D. Joint Degree, Computer Science and Engineering
+                                    (Big Data)</div>
+                                <div class="institution">School of Computer Science and Engineering, College of Software, Chung-Ang University, Seoul, Republic of Korea</div>
+                            </div>
+                            <div class="year">2025 - 2030</div>
+                        </div>
+                        <p>Research Assistant in <a href="https://inl.cau.ac.kr/member#h.tdnt75ttjgkr"
+                                target="_blank">Intelligent Networking Lab
+                                (INL)</a> | Teaching Assistant, Dept of CSE</p>
+                        <p><strong>Supervisor:</strong> Professor Wooyeol Choi</p>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="edu-header">
+                            <div>
+                                <div class="pub-title">Bachelor of Engineering in Computer Science and Technology</div>
+                                <div class="institution">School of Artificial Intelligence and Computer Science, Nantong
+                                    University, Jiangsu Province, People's Republic of China</div>
+                            </div>
+                            <div class="year">2021 - 2025</div>
+                        </div>
+                        <p><strong>GPA:</strong> 3.86/5.00 (WES-converted: 3.37/4.0) | <strong>Ranking:</strong> 2/32
+                        </p>
+                        <p><strong>Thesis:</strong> CardioForest: An Explainable Ensemble Learning Model for Automatic
+                            Wide QRS Complex Tachycardia Diagnosis from ECG</p>
+                        <p><strong>Supervisors:</strong> Professor Gao Zhan,
+                            Professor Ju Xiaolin</p>
+                    </div>
+                </div>
+            </section>
 
 
-      <div class="glide" id="glide3">
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides">
-            <li class="glide__slide">
-              <div class="single">
-                <div class="img-holder">
-                  <img
-                    src="https://theartsdevelopmentcompany.org.uk/wp-content/uploads/2019/02/Website-Building-Landscape-1280x640.jpg"
-                    alt="" />
-                </div>
-                <div class="bottom">
-                  <span>04 Feb, 2023</span>
-                  <h3>How to make a WordPress website secure step by step</h3>
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum, ipsum nisi iure dolor necessitatibus
-                    alias suscipit id quas voluptates non et laboriosam magnam tenetur dolore reiciendis vel ad fugit
-                    ut!
-                  </p>
-                  <a href="">READ MORE</a>
-                </div>
-            </li>
-            <li class="glide__slide">
-              <div class="single">
-                <div class="img-holder">
-                  <img
-                    src="https://i0.wp.com/www.languageonthemove.com/wp-content/uploads/2013/01/Chinese.jpg?fit=515%2C404&ssl=1"
-                    alt="" />
-                </div>
-                <div class="bottom">
-                  <span>05 Feb, 2023</span>
-                  <h3>How to learn Chinese from Scratch to advanced</h3>
-                  <p>
-                    Chinese is a group of languages spoken natively by the ethnic Han Chinese majority and many minority
-                    ethnic groups in Greater China.
-                  </p>
-                  <a href="">READ MORE</a>
-                </div>
-            </li>
-            <li class="glide__slide">
-              <div class="single">
-                <div class="img-holder">
-                  <img
-                    src="https://codecondo.com/wp-content/uploads/2015/03/20-Ways-To-Learn-C-Programming-For-Free.png"
-                    alt="" />
-                </div>
-                <div class="bottom">
-                  <span>13 March,2023</span>
-                  <h3>20 Ways to learn C programming</h3>
-                  <p>
-                    Most of the people find computer programming as boring, while for some of them enjoy doing it. A
-                    typical programmer needs to keep himself updated with the latest trends upcoming in the programming
-                    world. Nearly all programmers starts programming with C, as it is most used programming language for
-                    writing apps and operating systems.
-                  </p>
-                  <a href="">READ MORE</a>
-                </div>
-            </li>
-          </ul>
-        </div>
+            <section id="publications">
+                <h2>Publications</h2>
+                <div class="content-wrapper">
+                    <div class="publications-list">
+                        <!-- Publication 1 -->
+                        <div class="publication-item">
+                            <div class="pub-title">JIT-CF: Integrating Contrastive Learning with Feature Fusion for
+                                Enhanced Just-in-Time Defect Prediction</div>
+                            <div class="pub-authors">Ju Xiaolin, Yi Cao, Xiang Chen, Lina Gong, Vaskar Chakma, and Xin
+                                Zhou.
+                            </div>
+                            <div class="pub-venue">Information and Software Technology, 182 (2025): 107706.</div>
+                            <div class="pub-links">
+                                <a href="https://doi.org/10.1016/j.infsof.2025.107706" target="_blank"
+                                    class="pub-link doi">DOI</a>
+                                <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:G3SP5jbCVL8J:scholar.google.com/&output=citation&scisdr=CgLqiZEZEJX4kC9ZhQI:AAZF9b8AAAAAaOtfnQKUI5CZfUXH4fKVyjUIzoE&scisig=AAZF9b8AAAAAaOtfnVcEROd07f8KK0ToM57cGVM&scisf=4&ct=citation&cd=-1&hl=en"
+                                    target="_blank" class="pub-link cite">Cite</a>
+                                <a href="/JITCF.pdf" class="pub-link pdf">PDF</a>
+                            </div>
+                        </div>
 
-        <!-- Arrows -->
-        <div class="glide__arrows" data-glide-el="controls">
-          <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><i class="fas fa-angle-left"></i></button>
-          <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><i
-              class="fas fa-angle-right"></i></button>
-        </div>
-      </div>
+                        <!-- Publication 2 -->
+                        <div class="publication-item">
+                            <div class="pub-title">From Margins to Mainstream: Can Artificial Intelligence (AI) Reshape
+                                Governance for Chittagong Hill Tracts Indigenous Communities?</div>
+                            <div class="pub-authors">Vaskar Chakma, Amin Misbahul, Rouf Abdur, Suruj Al Mahmud, Mia
+                                Raju, and Rafid Mustavi.</div>
+                            <div class="pub-venue">EJTAS, 3(1), 166-178, 2025</div>
+                            <div class="pub-links">
+                                <a href="https://doi.org/10.59324/ejtas.2025.3(1).16" target="_blank"
+                                    class="pub-link doi">DOI</a>
+                                <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:KqpnbyMdjIEJ:scholar.google.com/&output=citation&scisdr=CgLqiZEZEJX4kC9nCfY:AAZF9b8AAAAAaOthEfYoMG-0g3RdlZgbYAwXBp4&scisig=AAZF9b8AAAAAaOthEX__zmQ0EtymfpDV2TH6tXM&scisf=4&ct=citation&cd=-1&hl=en"
+                                    target="_blank" class="pub-link cite">Cite</a>
+                                <a href="/M2M.pdf" class="pub-link pdf">PDF</a>
+                            </div>
+                        </div>
+
+                        <!-- Publication 3 -->
+                        <div class="publication-item">
+                            <div class="pub-title">What Drives House Prices? A Linear Regression Approach to Size,
+                                Condition, and Features</div>
+                            <div class="pub-authors">Xiaolin Ju, Vaskar Chakma, Misbahul Amin, and Arkhid Chakma Joy.
+                            </div>
+                            <div class="pub-venue">Journal of Artificial Intelligence & Data Mining, 13(1), 41-51, 2025
+                            </div>
+                            <div class="pub-links">
+                                <a href="https://doi.org/10.22044/jadm.2025.15529.2668" target="_blank"
+                                    class="pub-link doi">DOI</a>
+                                <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:-KE9jZSOojAJ:scholar.google.com/&output=citation&scisdr=CgLqiZEZEJX4kC9lqwA:AAZF9b8AAAAAaOtjswC7dYCoQfnJt1uiJktsGwA&scisig=AAZF9b8AAAAAaOtjs3gR4jDs8FvO3ig_XUejNlc&scisf=4&ct=citation&cd=-1&hl=en"
+                                    target="_blank" class="pub-link cite">Cite</a>
+                                <a href="/house.pdf" class="pub-link pdf">PDF</a>
+                            </div>
+                        </div>
+
+                        <!-- Publication 4 -->
+                        <div class="publication-item">
+                            <div class="pub-title">CardioForest: An Explainable Ensemble Learning Model for Automatic
+                                Wide QRS Complex Tachycardia Diagnosis from ECG</div>
+                            <div class="pub-authors">Chakma Vaskar, Xiaolin Ju, Heling Cao, Xue Feng, Ji Xiaodong, Pan
+                                Haiyan, and Gao Zhan.</div>
+                            <div class="pub-venue"> arXiv:2509.25804 and medRxiv, pp.2025-09</div>
+                            <div class="pub-links">
+                                <a href="https://doi.org/10.48550/arXiv.2509.25804" target="_blank"
+                                    class="pub-link doi">DOI</a>
+                                <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:fevjPTkDS80J:scholar.google.com/&output=citation&scisdr=CgLqiZEZEJX4kC9ipcs:AAZF9b8AAAAAaOtkvctE9dMo3AQ1_YZFIx4zeTQ&scisig=AAZF9b8AAAAAaOtkvS5W8CPvCYwFboTqEYIRtvU&scisf=4&ct=citation&cd=-1&hl=en"
+                                    target="_blank" class="pub-link cite">Cite</a>
+                                <a href="/CardioForest.pdf" class="pub-link pdf">PDF</a>
+                            </div>
+                        </div>
+
+                        <!-- Publication 5 -->
+                        <div class="publication-item">
+                            <div class="pub-title">Prediction of UHPC Mechanical Properties Using Optimized Hybrid
+                                Machine Learning Model with Robust Sensitivity and Uncertainty Analysis</div>
+                            <div class="pub-authors">Zhou ZhiGuang, Jagaran Chakma, Md Ahatasamul Hoque, Vaskar Chakma,
+                                and Asif Ahmed.</div>
+                            <div class="pub-venue">Materials Research Express 12, no. 8 (2025): 085703.</div>
+                            <div class="pub-links">
+                                <a href="https://doi.org/10.1088/2053-1591/adf8c4" target="_blank"
+                                    class="pub-link doi">DOI</a>
+                                <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:-LfS-Agm4fgJ:scholar.google.com/&output=citation&scisdr=CgLqiZEZEJX4kC9j9qk:AAZF9b8AAAAAaOtl7qkbZ5p1841uwA_u0i24h6E&scisig=AAZF9b8AAAAAaOtl7krKowkKUZCxmx2X6WebI2U&scisf=4&ct=citation&cd=-1&hl=en"
+                                    target="_blank" class="pub-link cite">Cite</a>
+                                <a href="/UHPC.pdf" class="pub-link pdf">PDF</a>
+                            </div>
+                        </div>
+
+                        <!-- Publication 6 -->
+                        <div class="publication-item">
+                            <div class="pub-title">Machine Learning Techniques for Predicting SRHD: Smoking-Related
+                                Health Decline</div>
+                            <div class="pub-authors">Chakma Vaskar, MD Jaheid Hasan Nerab, Abdur Rouf, Abu Sayed, Hossem
+                                MD Saim, and Md Nournabi Khan.</div>
+                            <div class="pub-venue">Journal of Intelligent Medicine and Healthcare, Tech Science Press
+                                (In Review)</div>
+                            <div class="pub-links">
+                                <a href="https://doi.org/10.22541/au.174483083.36026266/v1" target="_blank"
+                                    class="pub-link preprint">Preprint</a>
+                                <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:dF0TLaX3y-YJ:scholar.google.com/&output=citation&scisdr=CgLqiZEZEJX4kC9hUV8:AAZF9b8AAAAAaOtnSV-Qpj6QNYP0XutRoOGZN-U&scisig=AAZF9b8AAAAAaOtnSaFSFpgO4Va9KhIqRX2oInY&scisf=4&ct=citation&cd=-1&hl=en"
+                                    target="_blank" class="pub-link cite">Cite</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="conferences">
+                <h2>Conferences</h2>
+                <div class="content-wrapper">
+                    <h3>International Conference </h3>
+                    <div class="publications-list">
+                        <!-- Conference 1 -->
+                        <div class="publication-item">
+                            Vaskar Chakma and Wooyeol Choi, "6G-enabled digital twin framework for real-time
+                            cyber-physical systems," ICTC Workshop on Big Data, CPS, and 5G & 6G Communication Networks
+                            (IWBCN), Jeju, Republic of Korea, October 14-17, 2025.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience">
+                <h2>Experience</h2>
+                <div class="content-wrapper">
+                    <h3>Academic & Research Experience</h3>
+                    <div class="experience-item">
+                        <div class="edu-header">
+                            <div class="pub-title">Research Assistant - Intelligent Networking Lab (INL)</div>
+                            <div class="year">2025 - Present</div>
+                        </div>
+                        <div class="institution">Chung-Ang University, Seoul, Korea</div>
+                        <p>RF-Based Human Sensing, Self-Driving Cars, Wireless Networking, AI/ML </p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="edu-header">
+                            <div class="pub-title">Teaching Assistant</div>
+                            <div class="year">2025 - Present</div>
+                        </div>
+                        <div class="institution">Department of CSE, Chung-Ang University</div>
+                        <p>Assisting in course delivery and student mentoring in computer science courses.</p>
+                    </div>
+
+                    <h3>Co-Curricular Experience</h3>
+                    <div class="experience-item">
+                        <div class="edu-header">
+                            <div class="pub-title">Head, Human Resources & Ex-Organising Secretary</div>
+                            <div class="year">2021 - Present</div>
+                        </div>
+                        <div class="institution">Rhukkengor Valedeer Gabussya (RhuVaGa), Chittagong Hill Tracts,
+                            People's Republic of Bangladesh</div>
+                        <p>Leadership, network building, public dealing, team work, project management, and public
+                            speaking.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="edu-header">
+                            <div class="pub-title">SIE Student Volunteer</div>
+                            <div class="year">2023 - 2025</div>
+                        </div>
+                        <div class="institution">Nantong University, People's Republic of China</div>
+                        <p>Managed admitted international students for various events, assisted with check-in
+                            procedures,
+                            documentation verification, and reporting to the School of International Education.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="edu-header">
+                            <div class="pub-title">District Ambassador (Part-Time)</div>
+                            <div class="year">2021 - 2023</div>
+                        </div>
+                        <div class="institution">Blue Team Bangladesh Ltd., People's Republic of Bangladesh</div>
+                        <p>Team work, cybersecurity tasks learning, and penetration testing.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="edu-header">
+                            <div class="pub-title">Red Crescent Youth (RCY) Volunteer</div>
+                            <div class="year">2017 - 2020</div>
+                        </div>
+                        <div class="institution">Bangladesh Red Crescent Society, Rangamati District Unit, Chittagong
+                            Division, People's Republic of Bangladesh</div>
+                        <p>Working for a more humane and peaceful world by delivering services to vulnerable people
+                            and preventing vulnerability.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills">
+                <h2>Skills & Certifications</h2>
+                <div class="content-wrapper">
+                    <h3>Technical Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Programming</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">C Programming</span>
+                                <span class="skill-tag">HTML/CSS</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>AI/ML Tools</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Machine Learning</span>
+                                <span class="skill-tag">Google Colab</span>
+                                <span class="skill-tag">NumPy</span>
+                                <span class="skill-tag">Pandas</span>
+                                <span class="skill-tag">Matplotlib</span>
+                                <span class="skill-tag">Seaborn</span>
+                                <span class="skill-tag">Scikit-learn</span>
+                                <span class="skill-tag">TensorFlow</span>
+                                <span class="skill-tag">Keras</span>
+                                <span class="skill-tag">PyTorch</span>
+                                <span class="skill-tag">SHAP</span>
+
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Other Tools</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Unity</span>
+                                <span class="skill-tag">Microsoft Office</span>
+                                <span class="skill-tag">Google Products</span>
+                                <span class="skill-tag">Social Engineering</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Language Skills</h3>
+                    <div class="language-skills">
+                        <div class="language-item">
+                            <strong>Chakma:</strong> Mother Tongue
+                        </div>
+                        <div class="language-item">
+                            <strong>Bengali:</strong> Native
+                        </div>
+                        <div class="language-item">
+                            <strong>English:</strong> Advanced (C1 - Listening/Reading, B2 - Speaking/Writing)
+                        </div>
+                        <div class="language-item">
+                            <strong>Chinese:</strong> Intermediate (B2 - Listening/Reading, B1 - Speaking, A2 - Writing)
+                        </div>
+                        <div class="language-item">
+                            <strong>Hindi & Urdu:</strong> Advanced (C1 - Listening, B2 - Speaking)
+                        </div>
+                    </div>
+
+                    <h3>Certifications & Honours</h3>
+                    <div class="certifications-list">
+                        <div class="cert-item">• Top-3 in Chinese Proficiency Test (HSK4: 269/300) - Nantong University
+                        </div>
+                        <div class="cert-item">• Second Class Bachelor University Scholarship - Nantong University</div>
+                        <div class="cert-item">• Supervised Machine Learning: Regression and Classification -
+                            DeepLearning.AI, Stanford</div>
+                        <div class="cert-item">• Automate Cybersecurity Tasks with Python - Google & Coursera</div>
+                        <div class="cert-item">• Explore and Analyze Data with Python - Microsoft</div>
+                        <div class="cert-item">• Digital Khichuri Challenge 2022 (Finalist) - UNDP Bangladesh</div>
+                        <div class="cert-item">• Space, Sky, Land, and Sea Integrated Network Summer School (Outstanding
+                            Student)</div>
+                        <div class="cert-item">• IEEE Student Member & Technical Communities Member</div>
+                    </div>
+
+                    <h3>Scholarships</h3>
+                    <div class="certifications-list">
+                        <div class="cert-item">• Chung-Ang University Young Scientist Scholarship - 중앙대학교 젊은 과학자
+                            장학금(CAYSS) [Full Scholarship Awardee] - Brain Korea 21 [BK21] Research
+                        </div>
+                        <div class="cert-item">• Huazhong University of Science and Technology (HUST), Master's Degree
+                            Candidate (September 2025 to July 2027), School of Computer Science and Technology. Chinese
+                            Government Scholarship （中国政府奖学金）- Full Scholarship Awardee
+                        </div>
+                        <div class="cert-item">• Nantong University Bachelor Scholarship,
+                            Issued by Jiangsu Provincial Government, People's Republic of China · Sep 2021 - Jun 2025
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <h2>Contact</h2>
+                <div class="content-wrapper">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <strong>Address:</strong> Blue Mir Hall 309 [505], Chung-Ang University, 84 Heukseok-ro,
+                            Dongjak District, Seoul,
+                            Republic of Korea [Post Code: 06974]
+                        </div>
+                        <div class="contact-item">
+                            <strong>Phone:</strong> +82-010-8371-1724
+                        </div>
+                        <div class="contact-item">
+                            <strong>Email:</strong> <a href="mailto:vaskarchakma7@gmail.com">vaskarchakma7@gmail.com</a>
+                            |
+                            <a href="mailto:vaskar@cau.ac.kr">vaskar@cau.ac.kr</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Vaskar Chakma. All rights reserved.</p>
+            <p>Last updated: <span id="lastUpdated"></span></p>
+        </footer>
     </div>
-  </section>
 
-  <!-- Contact -->
-  <section class="section contact" id="contact">
-    <div class="contact-center container">
-      <div class="left" data-aos="fade-down-right" data-aos-duration="2000">
-        <h2>Contact Me</h2>
-        <p>
-          Send your requirement using the form & support team will get
-          back to you as soon as possible. Please describe briefly everything
-          you need & possibly send some example you like.
-        </p>
+    <button id="scrollToTop" title="Go to top" aria-label="Scroll to top">↑</button>
 
-        <div class="bottom">
-          <div>
-            <span><i class="fas fa-map-marked-alt"></i></span>
-            <h4>Location</h4>
-            <small>No-9, Seyuan Road, Nantong University, Nantong, Jiangsu, China.</small>
-          </div>
-          <div>
-            <span><i class="far fa-envelope-open"></i></span>
-            <h4>Email</h4>
-            <small>vaskarchakma@stmail.ntu.edu.cn</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="right" data-aos="fade-up-left" data-aos-duration="2000">
-        <form class="form">
-          <div>
-            <input type="text" placeholder="Full Name" />
-            <input type="email" placeholder="E-mail" />
-          </div>
-          <textarea cols="30" rows="10" placeholder="Message"></textarea>
-          <a href="mailto:vaskarchangma001@gmail.com">SEND</a>
-        </form>
-      </div>
-    </div>
-  </section>
-
-
-  <div>
-    <div>
-      <strong style="font-family: 'Times New Roman', Times, serif; font-size: 24px;"> <u>Let`s get Connected</u> </strong>
-    </div>
-    <div class="Social Media">
-      <a href="https://www.linkedin.com/in/vaskar-chakma/" target="_blank" class="Linkedin" style="width: 30px; height: 30px;margin: 8px;">
-        <img src="/images/linkedin-team-alpha.png" alt="LinkedIn" class="LinkedIn" style="width: 30px; height: 30px;" width="40" height="40"></a>
-      <a href="https://github.com/VaskarChakma" target="_blank" class="github" style="width: 30px;height: 30px;margin: 8px;">
-        <img src="/images/github.png" alt="GitHub" class="GitHub" style="width: 30px; height: 30px;" width="40" height="40"></a>
-      <a href="https://www.hackerrank.com/vaskarchakma7" target="_blank" class="HackerRank" style="width: 30px;height: 30px;margin: 8px;">
-        <img src="/images/hackerrank.png"alt="HackerRank" class="HackerRank" style="width: 30px; height: 30px;" width="40" height="40"></a>
-      <a href="https://www.facebook.com/home.vaskar" target="_blank" class="Facebook" style="width: 30px;height: 30px;margin: 8px;">
-        <img src="/images/Facebook-team-alpha.png" alt="Facebook" class="Facebook" style="width: 30px; height: 30px;" width="40" height="40"></a>
-      <a href="https://www.instagram.com/vaskar_changma/" target="_blank" class="Instagram" style="width: 30px;height: 30px;margin: 8px;">
-        <img src="/images/instagram.png" alt="Instagram" class="Instagram" style="width: 30px; height: 30px;" width="20" height="20"></a>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p> Copyright &copy; 2023 All rights reserved - Vaskar Chakma </p>
-  </footer>
-  <!-- AOS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <!-- Gsap -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
-  <!-- Glidejs -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
-  <!-- Custom Script -->
-  <script src="./js/slider.js"></script>
-  <script src="./js/index.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
