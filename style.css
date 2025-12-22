@@ -1,6 +1,7 @@
 /* ===================================
    VASKAR CHAKMA - ACADEMIC PORTFOLIO
    Redesigned with Clean Academic Style
+   + Dark Mode & Custom Cursor
    =================================== */
 
 /* Reset and Base Styles */
@@ -21,6 +22,183 @@ body {
     color: #333;
     background-color: #ffffff;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: none;
+}
+
+/* ========== CUSTOM CURSOR ========== */
+.cursor-highlight {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1a73e8;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, border-color 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+
+body.dark-mode .cursor-highlight {
+    border-color: #64b5f6;
+}
+
+.cursor-highlight.cursor-hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    border-color: #ff6b6b;
+}
+
+/* ========== THEME TOGGLE BUTTON ========== */
+.theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 80px;
+    z-index: 1000;
+    background-color: #1a73e8;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.theme-icon {
+    font-size: 24px;
+}
+
+body.dark-mode .theme-toggle {
+    background-color: #424242;
+}
+
+/* ========== VISITOR COUNTER ========== */
+.visitor-counter {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 99;
+    background-color: #1a73e8;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.visitor-counter:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.visitor-icon {
+    font-size: 1.2em;
+}
+
+body.dark-mode .visitor-counter {
+    background-color: #424242;
+}
+
+/* ========== DARK MODE STYLES ========== */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .profile-info h1,
+body.dark-mode section h2,
+body.dark-mode section h3,
+body.dark-mode .edu-degree,
+body.dark-mode .exp-title,
+body.dark-mode .pub-title {
+    color: #ffffff;
+}
+
+body.dark-mode .profile-info .subtitle,
+body.dark-mode .profile-info .affiliation,
+body.dark-mode .profile-contact,
+body.dark-mode section p,
+body.dark-mode .edu-school,
+body.dark-mode .edu-detail,
+body.dark-mode .pub-authors,
+body.dark-mode .pub-venue,
+body.dark-mode .exp-org,
+body.dark-mode .exp-desc,
+body.dark-mode .honors-list {
+    color: #b0b0b0;
+}
+
+body.dark-mode nav {
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode .nav-links a {
+    color: #e0e0e0;
+}
+
+body.dark-mode .nav-links a:hover,
+body.dark-mode .nav-links a.active {
+    color: #64b5f6;
+}
+
+body.dark-mode section h2 {
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode .interest-tag {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .education-item,
+body.dark-mode .publication-item,
+body.dark-mode .experience-item {
+    border-bottom: 1px solid #2a2a2a;
+}
+
+body.dark-mode footer {
+    border-top: 1px solid #333;
+    color: #666;
+}
+
+body.dark-mode a {
+    color: #64b5f6;
+}
+
+body.dark-mode .profile-contact a,
+body.dark-mode .pub-links a {
+    color: #64b5f6;
+}
+
+body.dark-mode .edu-year,
+body.dark-mode .exp-year {
+    color: #666;
+}
+
+body.dark-mode .pub-authors strong {
+    color: #ffffff;
+}
+
+body.dark-mode #scrollToTop {
+    background-color: #424242;
+}
+
+body.dark-mode #scrollToTop:hover {
+    background-color: #535353;
 }
 
 /* Container */
@@ -97,6 +275,7 @@ body {
     color: #1a73e8;
     text-decoration: none;
     margin-left: 15px;
+    cursor: pointer;
 }
 
 .profile-contact a:hover {
@@ -127,6 +306,7 @@ nav {
     font-weight: 500;
     padding: 5px 0;
     transition: color 0.2s;
+    cursor: pointer;
 }
 
 .nav-links a:hover,
@@ -201,6 +381,7 @@ section p {
 section a {
     color: #1a73e8;
     text-decoration: none;
+    cursor: pointer;
 }
 
 section a:hover {
@@ -337,6 +518,7 @@ section a:hover {
     color: #1a73e8;
     text-decoration: none;
     font-size: 0.85em;
+    cursor: pointer;
 }
 
 .pub-links a:hover {
@@ -445,6 +627,14 @@ footer {
 
 /* Mobile Devices (up to 768px) */
 @media (max-width: 768px) {
+    body {
+        cursor: auto;
+    }
+
+    .cursor-highlight {
+        display: none;
+    }
+
     .container {
         padding: 20px 15px;
     }
@@ -480,6 +670,24 @@ footer {
         display: flex;
     }
 
+    .theme-toggle {
+        top: 15px;
+        right: 80px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .theme-icon {
+        font-size: 20px;
+    }
+
+    .visitor-counter {
+        bottom: 20px;
+        left: 20px;
+        font-size: 0.8em;
+        padding: 8px 15px;
+    }
+
     nav {
         position: fixed;
         top: 0;
@@ -490,6 +698,10 @@ footer {
         box-shadow: 2px 0 10px rgba(0,0,0,0.1);
         transition: left 0.3s;
         padding: 80px 20px 20px;
+    }
+
+    body.dark-mode nav {
+        background-color: #1a1a1a;
     }
 
     nav.active {
@@ -505,6 +717,10 @@ footer {
         padding: 15px 0;
         border-bottom: 1px solid #f0f0f0;
         font-size: 1em;
+    }
+
+    body.dark-mode .nav-links a {
+        border-bottom: 1px solid #2a2a2a;
     }
 
     section h2 {
@@ -558,6 +774,13 @@ footer {
 @media print {
     body {
         background-color: white;
+        cursor: auto;
+    }
+
+    .cursor-highlight,
+    .theme-toggle,
+    .visitor-counter {
+        display: none !important;
     }
 
     .container {
