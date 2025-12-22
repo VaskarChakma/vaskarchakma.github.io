@@ -1,6 +1,6 @@
 // ===================================
 // VASKAR CHAKMA - PORTFOLIO SCRIPT
-// Redesigned with Clean Academic Style
+// Enhanced with Visitor Counter, Custom Cursor & Dark Mode
 // ===================================
 
 // Wait for DOM to be fully loaded
@@ -12,7 +12,145 @@ document.addEventListener('DOMContentLoaded', function() {
     initActiveNavHighlight();
     initScrollAnimation();
     initMobileMenu();
+    initCustomCursor();
+    initThemeToggle();
+    initVisitorCounter();
 });
+
+// ========== VISITOR COUNTER ==========
+function initVisitorCounter() {
+    const counterElement = document.getElementById('visitorCount');
+    
+    if (!counterElement) return;
+    
+    try {
+        // Get visitor count from persistent storage
+        window.storage.get('visitor_count', true).then(result => {
+            let count = 0;
+            
+            if (result && result.value) {
+                count = parseInt(result.value);
+            }
+            
+            // Check if this visitor has been counted before in this session
+            const hasVisited = sessionStorage.getItem('hasVisited');
+            
+            if (!hasVisited) {
+                // Increment count for new visitor
+                count++;
+                
+                // Save new count to persistent storage (shared)
+                window.storage.set('visitor_count', count.toString(), true).then(() => {
+                    counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
+                    sessionStorage.setItem('hasVisited', 'true');
+                }).catch(() => {
+                    // Fallback to localStorage if persistent storage fails
+                    saveToLocalStorage(count);
+                    counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
+                });
+            } else {
+                // Just display the current count
+                counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
+            }
+        }).catch(() => {
+            // Fallback to localStorage if persistent storage is not available
+            useLocalStorageFallback(counterElement);
+        });
+    } catch (error) {
+        console.log('Using localStorage fallback for visitor counter');
+        useLocalStorageFallback(counterElement);
+    }
+}
+
+function useLocalStorageFallback(counterElement) {
+    let count = parseInt(localStorage.getItem('visitorCount')) || 0;
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    
+    if (!hasVisited) {
+        count++;
+        saveToLocalStorage(count);
+        sessionStorage.setItem('hasVisited', 'true');
+    }
+    
+    counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
+}
+
+function saveToLocalStorage(count) {
+    try {
+        localStorage.setItem('visitorCount', count.toString());
+    } catch (e) {
+        console.log('localStorage not available');
+    }
+}
+
+// ========== CUSTOM CURSOR ==========
+function initCustomCursor() {
+    // Only initialize on desktop devices
+    if (window.innerWidth <= 768) return;
+    
+    const cursor = document.querySelector('.cursor-highlight');
+    if (!cursor) return;
+    
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    
+    // Add hover effect on interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, .nav-link, .pub-title');
+    
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('cursor-hover');
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('cursor-hover');
+        });
+    });
+    
+    // Hide cursor when leaving viewport
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+    });
+}
+
+// ========== THEME TOGGLE (DARK/LIGHT MODE) ==========
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (!themeToggle) return;
+    
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
+    }
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        const isDark = document.body.classList.contains('dark-mode');
+        
+        // Update icon
+        themeIcon.textContent = isDark ? '☀️' : '🌙';
+        
+        // Save preference
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        
+        // Show notification
+        showNotification(isDark ? 'Dark mode enabled' : 'Light mode enabled');
+    });
+}
 
 // ========== UPDATE LAST MODIFIED DATE ==========
 function updateLastModified() {
@@ -211,7 +349,7 @@ function showNotification(message) {
     notification.textContent = message;
     notification.style.cssText = `
         position: fixed;
-        bottom: 80px;
+        bottom: 100px;
         right: 20px;
         background-color: #1a73e8;
         color: white;
@@ -222,6 +360,11 @@ function showNotification(message) {
         font-size: 0.9em;
         animation: slideIn 0.3s ease;
     `;
+    
+    // Adjust notification style for dark mode
+    if (document.body.classList.contains('dark-mode')) {
+        notification.style.backgroundColor = '#424242';
+    }
     
     document.body.appendChild(notification);
     
@@ -272,4 +415,7 @@ window.addEventListener('load', function() {
     // Log publication count
     const publications = document.querySelectorAll('.publication-item');
     console.log(`✓ ${publications.length} publications loaded`);
+    
+    // Log feature status
+    console.log('✓ Features enabled: Visitor Counter, Custom Cursor, Dark Mode');
 });
