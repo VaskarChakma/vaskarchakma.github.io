@@ -26,47 +26,47 @@ function initVisitorCounter() {
     // Show loading state
     counterElement.textContent = 'Loading...';
     
-    // Your unique namespace - change 'vaskar-chakma' to your GitHub username or unique identifier
-    const namespace = 'vaskar-chakma-portfolio';
-    const key = 'visits';
+    // Your unique namespace - IMPORTANT: Change this to something unique!
+    const namespace = 'vaskar-chakma-site';
+    const key = 'visitor-count';
     
-    // Check if this browser has visited before (to count unique visitors only)
-    const hasVisitedBefore = localStorage.getItem('hasVisitedSite');
-    
-    if (!hasVisitedBefore) {
-        // New visitor - increment the counter
-        fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-            .then(response => response.json())
-            .then(data => {
-                const count = data.value;
-                counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
-                
-                // Mark this browser as having visited
-                localStorage.setItem('hasVisitedSite', 'true');
-                
-                // Add pulse animation for new visitors
-                counterElement.style.animation = 'pulse 0.5s ease';
-                
-                console.log(`✓ New visitor counted! Total: ${count}`);
-            })
-            .catch(error => {
-                console.error('Error fetching visitor count:', error);
-                counterElement.textContent = 'Visitors: --';
-            });
-    } else {
-        // Returning visitor - just get the current count without incrementing
-        fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
-            .then(response => response.json())
-            .then(data => {
-                const count = data.value;
-                counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
-                console.log(`✓ Returning visitor. Total: ${count}`);
-            })
-            .catch(error => {
-                console.error('Error fetching visitor count:', error);
-                counterElement.textContent = 'Visitors: --';
-            });
-    }
+    // ALWAYS INCREMENT - count every page load as a visit
+    fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const count = data.value;
+            counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
+            
+            // Add pulse animation
+            counterElement.style.animation = 'pulse 0.5s ease';
+            setTimeout(() => {
+                counterElement.style.animation = '';
+            }, 500);
+            
+            console.log(`✓ Visitor counted! Total visits: ${count}`);
+        })
+        .catch(error => {
+            console.error('Error fetching visitor count:', error);
+            
+            // Fallback: Try to get count without incrementing
+            fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.value !== undefined) {
+                        counterElement.textContent = `Visitors: ${data.value.toLocaleString()}`;
+                    } else {
+                        counterElement.textContent = 'Visitors: 1';
+                    }
+                })
+                .catch(() => {
+                    counterElement.textContent = 'Visitors: --';
+                });
+        });
 }
 
 // ========== CUSTOM CURSOR ==========
@@ -412,5 +412,5 @@ window.addEventListener('load', function() {
     console.log(`✓ ${publications.length} publications loaded`);
     
     // Log feature status
-    console.log('✓ Features enabled: Global Visitor Counter (CountAPI), Custom Cursor, Dark Mode');
+    console.log('✓ Features enabled: Real-time Global Visitor Counter, Custom Cursor, Dark Mode');
 });
