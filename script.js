@@ -1,4 +1,8 @@
-// Wait for the DOM to be fully loaded
+// ===================================
+// VASKAR CHAKMA - PORTFOLIO SCRIPT
+// ===================================
+
+// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functions
     updateLastModified();
@@ -12,56 +16,70 @@ document.addEventListener('DOMContentLoaded', function() {
     initVisitorCounter();
 });
 
-// ========== GLOBAL VISITOR COUNTER (CountAPI) ==========
+// ========== VISITOR COUNTER ==========
 function initVisitorCounter() {
     const counterElement = document.getElementById('visitorCount');
     
     if (!counterElement) return;
     
-    // Show loading state
-    counterElement.textContent = 'Loading...';
-    
-    // Automatically use your domain as namespace - no need to change!
-    const namespace = 'vaskarchakma-github-io';
-    const key = 'total-visitors';
-    
-    // Count every page load as a visit
-    fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+    try {
+        // Get visitor count from persistent storage
+        window.storage.get('visitor_count', true).then(result => {
+            let count = 0;
+            
+            if (result && result.value) {
+                count = parseInt(result.value);
             }
-            return response.json();
-        })
-        .then(data => {
-            const count = data.value;
-            counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
             
-            // Add pulse animation
-            counterElement.style.animation = 'pulse 0.5s ease';
-            setTimeout(() => {
-                counterElement.style.animation = '';
-            }, 500);
+            // Check if this visitor has been counted before in this session
+            const hasVisited = sessionStorage.getItem('hasVisited');
             
-            console.log(`✓ Visitor counted! Total visits: ${count}`);
-        })
-        .catch(error => {
-            console.error('Error fetching visitor count:', error);
-            
-            // Fallback: Try to get count without incrementing
-            fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.value !== undefined) {
-                        counterElement.textContent = `Visitors: ${data.value.toLocaleString()}`;
-                    } else {
-                        counterElement.textContent = 'Visitors: 1';
-                    }
-                })
-                .catch(() => {
-                    counterElement.textContent = 'Visitors: --';
+            if (!hasVisited) {
+                // Increment count for new visitor
+                count++;
+                
+                // Save new count to persistent storage (shared)
+                window.storage.set('visitor_count', count.toString(), true).then(() => {
+                    counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
+                    sessionStorage.setItem('hasVisited', 'true');
+                }).catch(() => {
+                    // Fallback to localStorage if persistent storage fails
+                    saveToLocalStorage(count);
+                    counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
                 });
+            } else {
+                // Just display the current count
+                counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
+            }
+        }).catch(() => {
+            // Fallback to localStorage if persistent storage is not available
+            useLocalStorageFallback(counterElement);
         });
+    } catch (error) {
+        console.log('Using localStorage fallback for visitor counter');
+        useLocalStorageFallback(counterElement);
+    }
+}
+
+function useLocalStorageFallback(counterElement) {
+    let count = parseInt(localStorage.getItem('visitorCount')) || 0;
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    
+    if (!hasVisited) {
+        count++;
+        saveToLocalStorage(count);
+        sessionStorage.setItem('hasVisited', 'true');
+    }
+    
+    counterElement.textContent = `Visitors: ${count.toLocaleString()}`;
+}
+
+function saveToLocalStorage(count) {
+    try {
+        localStorage.setItem('visitorCount', count.toString());
+    } catch (e) {
+        console.log('localStorage not available');
+    }
 }
 
 // ========== CUSTOM CURSOR ==========
@@ -383,15 +401,6 @@ style.textContent = `
             opacity: 0;
         }
     }
-    
-    @keyframes pulse {
-        0%, 100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.05);
-        }
-    }
 `;
 document.head.appendChild(style);
 
@@ -407,5 +416,5 @@ window.addEventListener('load', function() {
     console.log(`✓ ${publications.length} publications loaded`);
     
     // Log feature status
-    console.log('✓ Features enabled: Real-time Global Visitor Counter, Custom Cursor, Dark Mode');
+    console.log('✓ Features enabled: Visitor Counter, Custom Cursor, Dark Mode');
 });
