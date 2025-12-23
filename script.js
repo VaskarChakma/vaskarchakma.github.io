@@ -1,9 +1,4 @@
-// ===================================
-// VASKAR CHAKMA - PORTFOLIO SCRIPT
-// Enhanced with Global Visitor Counter, Custom Cursor & Dark Mode
-// ===================================
-
-// Wait for DOM to be fully loaded
+// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functions
     updateLastModified();
@@ -26,11 +21,11 @@ function initVisitorCounter() {
     // Show loading state
     counterElement.textContent = 'Loading...';
     
-    // Your unique namespace - IMPORTANT: Change this to something unique!
-    const namespace = 'vaskar-chakma-site';
-    const key = 'visitor-count';
+    // Automatically use your domain as namespace - no need to change!
+    const namespace = 'vaskarchakma-github-io';
+    const key = 'total-visitors';
     
-    // ALWAYS INCREMENT - count every page load as a visit
+    // Count every page load as a visit
     fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
         .then(response => {
             if (!response.ok) {
