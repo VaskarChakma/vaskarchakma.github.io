@@ -12,11 +12,113 @@
     <link rel="apple-touch-icon" sizes="180x180" href="coding.png">
     <link rel="shortcut icon" href="coding.png">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Google Translate Styles Fix -->
+    <style>
+        .goog-te-banner-frame, #goog-gt-tt { display: none !important; }
+        body { top: 0 !important; }
+        .goog-te-gadget { font-size: 0 !important; }
+        .goog-te-gadget select { display: none !important; }
+
+        #langSwitcher {
+            position: fixed; top: 15px; right: 140px;
+            z-index: 1001; display: flex; align-items: center;
+        }
+        /* Main button — matches the circular theme-toggle style */
+        #langMainBtn {
+            background-color: #1a73e8; border: none;
+            border-radius: 50%; width: 50px; height: 50px;
+            padding: 0; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            font-size: 22px; line-height: 1;
+            position: relative;
+        }
+        #langMainBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        /* Small active-language badge on the button */
+        #langBadge {
+            position: absolute; bottom: -3px; right: -3px;
+            background: white; border-radius: 50%;
+            width: 18px; height: 18px;
+            font-size: 11px; line-height: 18px;
+            text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            display: none;
+        }
+        /* Hide the arrow button entirely — single icon button now */
+        #langArrowBtn { display: none; }
+
+        body.dark-mode #langMainBtn { background-color: #424242; }
+        body.dark-mode #langBadge   { background: #2a2a2a; }
+
+        #langDropdown {
+            position: fixed; top: 72px; right: 130px;
+            z-index: 1002; background: white;
+            border: 1px solid #e0e0e0; border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            overflow: hidden; display: none;
+            flex-direction: column; min-width: 185px; padding: 6px 0;
+        }
+        body.dark-mode #langDropdown { background: #2a2a2a; border-color: #444; }
+
+        #langDropdown button {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 16px; border: none; background: transparent;
+            cursor: pointer; font-size: 13.5px; font-family: inherit;
+            color: #333; width: 100%; text-align: left; transition: background 0.15s;
+        }
+        body.dark-mode #langDropdown button { color: #e0e0e0; }
+        #langDropdown button:hover { background: #f1f3f4; }
+        body.dark-mode #langDropdown button:hover { background: #383838; }
+        #langDropdown button.active-lang { color: #1a73e8; font-weight: 600; }
+        body.dark-mode #langDropdown button.active-lang { color: #64b5f6; }
+        .lang-flag { font-size: 20px; }
+        .lang-native { font-size: 11px; color: #999; margin-left: auto; }
+
+        #langSearch {
+            margin: 6px 10px 4px; padding: 7px 12px;
+            border: 1px solid #e0e0e0; border-radius: 20px;
+            font-size: 12.5px; font-family: inherit; outline: none;
+            width: calc(100% - 20px); background: #f8f8f8; color: #333;
+        }
+        body.dark-mode #langSearch { background: #333; border-color: #555; color: #e0e0e0; }
+
+        .lang-list { max-height: 260px; overflow-y: auto; }
+        .lang-list::-webkit-scrollbar { width: 4px; }
+        .lang-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+        @media (max-width: 768px) {
+            #langSwitcher { right: 130px; top: 15px; }
+            #langMainBtn  { height: 45px; font-size: 12px; padding: 0 10px; }
+            #langArrowBtn { height: 45px; width: 30px; }
+            #langDropdown { right: 10px; top: 68px; }
+        }
+    </style>
 </head>
 <body>
     <!-- Custom Cursor -->
     <div class="cursor-highlight"></div>
-    
+
+    <!-- Google Translate (hidden native widget) -->
+    <div id="google_translate_element" style="display:none;"></div>
+
+    <!-- Custom Language Switcher UI -->
+    <div id="langSwitcher">
+        <button id="langMainBtn" onclick="toggleLangDropdown()" title="Switch language" aria-label="Switch language">
+            🌐
+            <span id="langBadge"></span>
+        </button>
+        <button id="langArrowBtn" onclick="toggleLangDropdown()">▾</button>
+    </div>
+
+    <div id="langDropdown">
+        <input id="langSearch" type="text" placeholder="🔍 Search language..." oninput="filterLangs(this.value)" />
+        <div class="lang-list" id="langList"></div>
+    </div>
+
     <!-- Theme Toggle Button -->
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
         <span class="theme-icon">🌙</span>
@@ -383,7 +485,7 @@
         </main>
 
         <footer>
-            <p>Copyright &bull;&copy; 2026 [Vaskar Chakma]. All rights reserved.</p>
+            <p>Copyright &bull;&copy; 2025 [Vaskar Chakma]. All rights reserved.</p>
             <p>Have an amazing day: <span id="lastUpdated"></span></p>
         </footer>
     </div>
@@ -391,19 +493,579 @@
     <button id="scrollToTop" title="Go to top" aria-label="Scroll to top">↑</button>
 
     <script src="script.js"></script>
-   
+    <script src="worldmap.js"></script>
+
+    <!-- Google Translate Init -->
+    <script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Language Switcher Logic -->
+    <script>
+    const LANGUAGES = [
+        { code: 'en',    flag: '🇺🇸', name: 'English',    native: 'English' },
+        { code: 'zh-CN', flag: '🇨🇳', name: 'Chinese',    native: '中文' },
+        { code: 'ko',    flag: '🇰🇷', name: 'Korean',     native: '한국어' },
+        { code: 'bn',    flag: '🇧🇩', name: 'Bengali',    native: 'বাংলা' },
+        { code: 'hi',    flag: '🇮🇳', name: 'Hindi',      native: 'हिन्दी' },
+        { code: 'ar',    flag: '🇸🇦', name: 'Arabic',     native: 'العربية' },
+        { code: 'fr',    flag: '🇫🇷', name: 'French',     native: 'Français' },
+        { code: 'de',    flag: '🇩🇪', name: 'German',     native: 'Deutsch' },
+        { code: 'es',    flag: '🇪🇸', name: 'Spanish',    native: 'Español' },
+        { code: 'ja',    flag: '🇯🇵', name: 'Japanese',   native: '日本語' },
+        { code: 'pt',    flag: '🇧🇷', name: 'Portuguese', native: 'Português' },
+        { code: 'ru',    flag: '🇷🇺', name: 'Russian',    native: 'Русский' },
+        { code: 'tr',    flag: '🇹🇷', name: 'Turkish',    native: 'Türkçe' },
+        { code: 'vi',    flag: '🇻🇳', name: 'Vietnamese', native: 'Tiếng Việt' },
+        { code: 'id',    flag: '🇮🇩', name: 'Indonesian', native: 'Bahasa Indonesia' },
+        { code: 'ms',    flag: '🇲🇾', name: 'Malay',      native: 'Bahasa Melayu' },
+        { code: 'th',    flag: '🇹🇭', name: 'Thai',       native: 'ภาษาไทย' },
+        { code: 'it',    flag: '🇮🇹', name: 'Italian',    native: 'Italiano' },
+        { code: 'nl',    flag: '🇳🇱', name: 'Dutch',      native: 'Nederlands' },
+        { code: 'pl',    flag: '🇵🇱', name: 'Polish',     native: 'Polski' },
+        { code: 'uk',    flag: '🇺🇦', name: 'Ukrainian',  native: 'Українська' },
+        { code: 'fa',    flag: '🇮🇷', name: 'Persian',    native: 'فارسی' },
+        { code: 'ur',    flag: '🇵🇰', name: 'Urdu',       native: 'اردو' },
+        { code: 'sw',    flag: '🇰🇪', name: 'Swahili',    native: 'Kiswahili' },
+    ];
+
+    let currentLang = 'en';
+    let dropdownOpen = false;
+
+    // Build the language list
+    function buildLangList(filter = '') {
+        const list = document.getElementById('langList');
+        list.innerHTML = '';
+        const filtered = LANGUAGES.filter(l =>
+            l.name.toLowerCase().includes(filter.toLowerCase()) ||
+            l.native.toLowerCase().includes(filter.toLowerCase())
+        );
+        filtered.forEach(l => {
+            const btn = document.createElement('button');
+            btn.className = l.code === currentLang ? 'active-lang' : '';
+            btn.innerHTML = `
+                <span class="lang-flag">${l.flag}</span>
+                <span>${l.name}</span>
+                <span class="lang-native">${l.native}</span>
+            `;
+            btn.onclick = () => switchLanguage(l);
+            list.appendChild(btn);
+        });
+    }
+
+    function filterLangs(val) { buildLangList(val); }
+
+    function toggleLangDropdown() {
+        const dd = document.getElementById('langDropdown');
+        dropdownOpen = !dropdownOpen;
+        dd.style.display = dropdownOpen ? 'flex' : 'none';
+        if (dropdownOpen) {
+            document.getElementById('langSearch').value = '';
+            buildLangList();
+            document.getElementById('langSearch').focus();
+        }
+    }
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+        if (!document.getElementById('langSwitcher').contains(e.target) &&
+            !document.getElementById('langDropdown').contains(e.target)) {
+            document.getElementById('langDropdown').style.display = 'none';
+            dropdownOpen = false;
+        }
+    });
+
+    function switchLanguage(lang) {
+        currentLang = lang.code;
+
+        // Update badge
+        const badge = document.getElementById('langBadge');
+        if (lang.code === 'en') {
+            badge.style.display = 'none';
+        } else {
+            badge.textContent   = lang.flag;
+            badge.style.display = 'block';
+        }
+
+        // Close dropdown
+        document.getElementById('langDropdown').style.display = 'none';
+        dropdownOpen = false;
+
+        // Save preference
+        try { localStorage.setItem('preferredLang', lang.code); } catch(e) {}
+
+        if (lang.code === 'en') {
+            resetToEnglish();
+        } else {
+            doGoogleTranslate(lang.code);
+        }
+
+        buildLangList();
+    }
+
+    function doGoogleTranslate(langCode) {
+        // Set the Google Translate cookie directly — most reliable method
+        const value  = `/en/${langCode}`;
+        const domain = location.hostname === 'localhost' ? 'localhost' : location.hostname;
+        document.cookie = `googtrans=${value}; path=/; domain=${domain}`;
+        document.cookie = `googtrans=${value}; path=/`;
+        location.reload();
+    }
+
+    function resetToEnglish() {
+        const domain = location.hostname === 'localhost' ? 'localhost' : location.hostname;
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain}`;
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+        location.reload();
+    }
+
+    // On page load — restore saved language & update button
+    (function restoreLanguage() {
+        try {
+            const saved = localStorage.getItem('preferredLang');
+            const badge = document.getElementById('langBadge');
+            if (saved && saved !== 'en') {
+                const lang = LANGUAGES.find(l => l.code === saved);
+                if (lang && badge) {
+                    badge.textContent   = lang.flag;
+                    badge.style.display = 'block';
+                    currentLang = saved;
+                }
+            } else {
+                if (badge) badge.style.display = 'none';
+                currentLang = 'en';
+            }
+        } catch(e) {}
+
+        document.getElementById('themeToggle')?.addEventListener('click', () => {
+            setTimeout(syncDarkMode, 80);
+        });
+
+        syncDarkMode();
+        buildLangList();
+    })();
+
+    function syncDarkMode() {
+        const dark = document.body.classList.contains('dark-mode');
+        const mainBtn  = document.getElementById('langMainBtn');
+        const arrowBtn = document.getElementById('langArrowBtn');
+        if (mainBtn)  mainBtn.style.backgroundColor  = dark ? '#424242' : '#1a73e8';
+        if (arrowBtn) arrowBtn.style.backgroundColor = dark ? '#424242' : '#1a73e8';
+    }
+    </script>
+
+    <!-- TCP HANDSHAKE GREETING -->
+    <style>
+        #tcpOverlay {
+            position: fixed; inset: 0; z-index: 99999;
+            background: rgba(0,0,0,0.48);
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem;
+            opacity: 0; transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        #tcpOverlay.show { opacity: 1; pointer-events: all; }
+
+        #tcpCard {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 32px 28px 24px;
+            max-width: 400px; width: 100%;
+            transform: translateY(24px) scale(0.97);
+            transition: transform 0.45s cubic-bezier(0.34,1.4,0.64,1);
+        }
+        body.dark-mode #tcpCard { background: #1a1a1a; }
+        #tcpOverlay.show #tcpCard { transform: translateY(0) scale(1); }
+
+        .tcp-kicker {
+            font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em;
+            text-transform: uppercase; color: #999;
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 24px;
+        }
+        .tcp-kicker-line { flex: 1; height: 1px; background: #e8e8e8; }
+        body.dark-mode .tcp-kicker-line { background: #2a2a2a; }
+
+        .tcp-diagram {
+            display: grid; grid-template-columns: 44px 1fr 44px;
+            align-items: center; gap: 10px; margin-bottom: 26px;
+        }
+
+        .tcp-node { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .tcp-node-ring {
+            width: 44px; height: 44px; border-radius: 50%;
+            border: 1px solid #e8e8e8;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; background: #fafafa;
+        }
+        body.dark-mode .tcp-node-ring { border-color: #2a2a2a; background: #242424; }
+        .tcp-node-lbl { font-size: 10px; color: #aaa; font-weight: 500; letter-spacing: 0.05em; }
+
+        .tcp-arrows { display: flex; flex-direction: column; gap: 14px; }
+
+        .tcp-arr {
+            display: flex; align-items: center;
+            opacity: 0; transform: translateX(-5px);
+            transition: opacity 0.38s ease, transform 0.38s ease;
+            position: relative;
+        }
+        .tcp-arr.rev { transform: translateX(5px); }
+        .tcp-arr.show { opacity: 1; transform: translateX(0) !important; }
+
+        .tcp-arr-line {
+            flex: 1; height: 1px; background: #e0e0e0;
+            position: relative; overflow: visible;
+        }
+        body.dark-mode .tcp-arr-line { background: #333; }
+
+        .tcp-arr-lbl {
+            position: absolute; top: -15px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em;
+            white-space: nowrap;
+        }
+        .tcp-tip { font-size: 9px; }
+
+        .tcp-pkt {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 6px; height: 6px; border-radius: 50%; opacity: 0;
+        }
+
+        .c-syn    { color: #185FA5; } .bg-syn    { background: #185FA5; }
+        .c-synack { color: #534AB7; } .bg-synack { background: #534AB7; }
+        .c-ack    { color: #0F6E56; } .bg-ack    { background: #0F6E56; }
+
+        .tcp-steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+
+        .tcp-step {
+            display: flex; gap: 10px; align-items: flex-start;
+            opacity: 0; transform: translateY(7px);
+            transition: opacity 0.32s ease, transform 0.32s ease;
+        }
+        .tcp-step.show { opacity: 1; transform: translateY(0); }
+
+        .tcp-step-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            margin-top: 5px; flex-shrink: 0;
+        }
+        .tcp-step-tag {
+            font-size: 9.5px; font-weight: 700; letter-spacing: 0.09em;
+            text-transform: uppercase; margin-bottom: 2px;
+        }
+        .tcp-step-msg {
+            font-size: 13px; color: #555; line-height: 1.5;
+        }
+        body.dark-mode .tcp-step-msg { color: #aaa; }
+        .tcp-step-msg strong { color: #111; font-weight: 500; }
+        body.dark-mode .tcp-step-msg strong { color: #e0e0e0; }
+
+        .tcp-foot {
+            border-top: 1px solid #f0f0f0;
+            padding-top: 16px;
+            display: flex; align-items: center; justify-content: space-between;
+            opacity: 0; transform: translateY(5px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        body.dark-mode .tcp-foot { border-top-color: #2a2a2a; }
+        .tcp-foot.show { opacity: 1; transform: translateY(0); }
+
+        .tcp-status { display: flex; align-items: center; gap: 7px; }
+        .tcp-status-dot {
+            width: 6px; height: 6px; border-radius: 50%; background: #0F6E56;
+            animation: tcpPulse 2s ease infinite;
+        }
+        @keyframes tcpPulse {
+            0%,100% { opacity:1; }
+            50%      { opacity:0.35; }
+        }
+        .tcp-status-lbl { font-size: 11.5px; color: #999; font-weight: 500; }
+
+        #tcpEnterBtn {
+            font-size: 12.5px; font-weight: 500;
+            padding: 8px 20px; border-radius: 25px;
+            border: 1px solid #e0e0e0;
+            background: transparent; color: #111;
+            cursor: pointer; display: flex; align-items: center; gap: 6px;
+            font-family: inherit; transition: background 0.15s, border-color 0.15s;
+        }
+        body.dark-mode #tcpEnterBtn { border-color: #333; color: #e0e0e0; }
+        #tcpEnterBtn:hover { background: #f4f4f4; }
+        body.dark-mode #tcpEnterBtn:hover { background: #242424; }
+        #tcpEnterBtn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+    </style>
+
+    <div id="tcpOverlay">
+        <div id="tcpCard">
+            <div class="tcp-kicker">
+                <span>Establishing connection</span>
+                <span class="tcp-kicker-line"></span>
+                <span>TCP / IP</span>
+            </div>
+
+            <div class="tcp-diagram">
+                <div class="tcp-node">
+                    <div class="tcp-node-ring">👤</div>
+                    <span class="tcp-node-lbl">You</span>
+                </div>
+
+                <div class="tcp-arrows">
+                    <div class="tcp-arr" id="tcpA1">
+                        <span class="tcp-tip c-syn">▸</span>
+                        <div class="tcp-arr-line">
+                            <span class="tcp-arr-lbl c-syn">SYN</span>
+                            <div class="tcp-pkt bg-syn" id="tcpP1"></div>
+                        </div>
+                    </div>
+                    <div class="tcp-arr rev" id="tcpA2">
+                        <div class="tcp-arr-line">
+                            <span class="tcp-arr-lbl c-synack">SYN — ACK</span>
+                            <div class="tcp-pkt bg-synack" id="tcpP2" style="right:0;left:auto;"></div>
+                        </div>
+                        <span class="tcp-tip c-synack">▸</span>
+                    </div>
+                    <div class="tcp-arr" id="tcpA3">
+                        <span class="tcp-tip c-ack">▸</span>
+                        <div class="tcp-arr-line">
+                            <span class="tcp-arr-lbl c-ack">ACK</span>
+                            <div class="tcp-pkt bg-ack" id="tcpP3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tcp-node">
+                    <div class="tcp-node-ring">🎓</div>
+                    <span class="tcp-node-lbl">Vaskar</span>
+                </div>
+            </div>
+
+            <div class="tcp-steps">
+                <div class="tcp-step" id="tcpS1">
+                    <div class="tcp-step-dot bg-syn"></div>
+                    <div>
+                        <div class="tcp-step-tag c-syn">SYN — You → Vaskar</div>
+                        <div class="tcp-step-msg">You just arrived. <strong>Connection requested.</strong></div>
+                    </div>
+                </div>
+                <div class="tcp-step" id="tcpS2">
+                    <div class="tcp-step-dot bg-synack"></div>
+                    <div>
+                        <div class="tcp-step-tag c-synack">SYN-ACK — Vaskar → You</div>
+                        <div class="tcp-step-msg">Welcome — I see you. <strong>Connection acknowledged.</strong></div>
+                    </div>
+                </div>
+                <div class="tcp-step" id="tcpS3">
+                    <div class="tcp-step-dot bg-ack"></div>
+                    <div>
+                        <div class="tcp-step-tag c-ack">ACK — You → Vaskar</div>
+                        <div class="tcp-step-msg">Confirmed. <strong>Connection established.</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tcp-foot" id="tcpFoot">
+                <div class="tcp-status">
+                    <div class="tcp-status-dot"></div>
+                    <span class="tcp-status-lbl">Connected · latency 0 ms</span>
+                </div>
+                <button id="tcpEnterBtn" onclick="closeTcp()">
+                    Enter
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        if (sessionStorage.getItem('tcpDone')) return;
+        sessionStorage.setItem('tcpDone', '1');
+
+        const ov = document.getElementById('tcpOverlay');
+        setTimeout(() => ov.classList.add('show'), 150);
+
+        function flyPkt(id, dir) {
+            var p = document.getElementById(id);
+            if (!p) return;
+            p.style.transition = 'none'; p.style.opacity = '0';
+            if (dir === 'l') { p.style.left = '0'; p.style.right = 'auto'; }
+            else             { p.style.right = '0'; p.style.left = 'auto'; }
+            setTimeout(function() {
+                p.style.transition = 'all 0.52s ease-in-out, opacity 0.08s';
+                p.style.opacity = '1';
+                if (dir === 'l') p.style.left = 'calc(100% - 6px)';
+                else             p.style.right = 'calc(100% - 6px)';
+                setTimeout(function() { p.style.opacity = '0'; }, 460);
+            }, 20);
+        }
+
+        var steps = [
+            function() { document.getElementById('tcpA1').classList.add('show'); flyPkt('tcpP1','l'); },
+            function() { document.getElementById('tcpS1').classList.add('show'); },
+            function() { document.getElementById('tcpA2').classList.add('show'); flyPkt('tcpP2','r'); },
+            function() { document.getElementById('tcpS2').classList.add('show'); },
+            function() { document.getElementById('tcpA3').classList.add('show'); flyPkt('tcpP3','l'); },
+            function() { document.getElementById('tcpS3').classList.add('show'); },
+            function() { document.getElementById('tcpFoot').classList.add('show'); },
+        ];
+        var t = [400, 900, 1400, 1900, 2400, 2900, 3500];
+        steps.forEach(function(fn, i) { setTimeout(fn, t[i]); });
+    })();
+
+    function closeTcp() {
+        var ov = document.getElementById('tcpOverlay');
+        ov.style.opacity = '0';
+        ov.style.pointerEvents = 'none';
+        setTimeout(function() { ov.style.display = 'none'; }, 380);
+    }
+
+    document.getElementById('tcpOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeTcp();
+    });
+    </script>
+
+
+    <!-- SPOTLIGHT TORCH CURSOR EASTER EGG -->
+    <style>
+        #spotlight {
+            position: fixed;
+            inset: 0;
+            z-index: 88888;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            background: rgba(0,0,0,0.82);
+            -webkit-mask-image: radial-gradient(circle 140px at 50% 50%, transparent 0%, transparent 38%, rgba(0,0,0,0.15) 55%, black 75%);
+            mask-image: radial-gradient(circle 140px at 50% 50%, transparent 0%, transparent 38%, rgba(0,0,0,0.15) 55%, black 75%);
+        }
+        body.dark-mode #spotlight { background: rgba(0,0,0,0.9); }
+        #spotlight.active { opacity: 1; }
+
+        #spotlightHint {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            z-index: 88889;
+            background: rgba(20,20,20,0.88);
+            color: rgba(255,255,255,0.85);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            padding: 8px 18px;
+            border-radius: 25px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #spotlightHint.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        #spotlightBadge {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+            font-size: 11px;
+            color: #aaa;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        body.dark-mode #spotlightBadge { color: #666; }
+        #spotlightBadge.show { opacity: 1; }
+        #spotlightBadge .kbd {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px; height: 20px;
+            border: 1px solid currentColor;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+    </style>
+
+    <div id="spotlight"></div>
+    <div id="spotlightHint">Press S again to exit torch mode</div>
+    <div id="spotlightBadge"><span class="kbd">S</span><span>torch mode</span></div>
+
+    <script>
+    (function() {
+        var spotlight = document.getElementById('spotlight');
+        var hint      = document.getElementById('spotlightHint');
+        var badge     = document.getElementById('spotlightBadge');
+        var active    = false;
+        var mx = window.innerWidth / 2;
+        var my = window.innerHeight / 2;
+        var hintTimer, badgeTimer;
+
+        if (!sessionStorage.getItem('spotlightHinted')) {
+            badgeTimer = setTimeout(function() {
+                badge.classList.add('show');
+                setTimeout(function() {
+                    badge.classList.remove('show');
+                    sessionStorage.setItem('spotlightHinted', '1');
+                }, 3500);
+            }, 5000);
+        }
+
+        function updateMask() {
+            var g = 'radial-gradient(circle 140px at ' + mx + 'px ' + my + 'px, '
+                + 'transparent 0%, transparent 38%, rgba(0,0,0,0.15) 55%, black 75%)';
+            spotlight.style.webkitMaskImage = g;
+            spotlight.style.maskImage = g;
+        }
+
+        function showHint() {
+            hint.classList.add('show');
+            clearTimeout(hintTimer);
+            hintTimer = setTimeout(function() { hint.classList.remove('show'); }, 2200);
+        }
+
+        function enter() {
+            active = true;
+            updateMask();
+            spotlight.classList.add('active');
+            badge.classList.remove('show');
+            clearTimeout(badgeTimer);
+            showHint();
+        }
+
+        function exit() {
+            active = false;
+            spotlight.classList.remove('active');
+            hint.classList.remove('show');
+        }
+
+        document.addEventListener('mousemove', function(e) {
+            mx = e.clientX; my = e.clientY;
+            if (active) updateMask();
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!active) return;
+            mx = e.touches[0].clientX; my = e.touches[0].clientY;
+            updateMask();
+        }, { passive: true });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 's' || e.key === 'S') { active ? exit() : enter(); }
+            if (e.key === 'Escape' && active) exit();
+        });
+    })();
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
