@@ -621,6 +621,36 @@ body.dark-mode .about-section p {
         text-align: left;
         justify-self: start;
     }
+
+    #conferences .pub-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    #conferences .pub-content > .pub-thumb {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    #conferences .pub-meta {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    #conferences .pub-right {
+        grid-column: 1;
+        grid-row: 3;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    #conferences .pub-date-place {
+        text-align: left;
+    }
+
+    #conferences .pub-links {
+        justify-content: flex-start;
+    }
 }
 
 .pub-title {
