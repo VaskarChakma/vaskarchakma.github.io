@@ -479,6 +479,7 @@ body.dark-mode .about-section {
     color: #666;
     line-height: 1.7;
     font-size: 0.95em;
+    text-align: justify;
 }
 
 body.dark-mode .about-section p {
