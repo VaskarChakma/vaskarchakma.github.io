@@ -98,7 +98,7 @@
   fetch("https://vaskarchakma.goatcounter.com/counter/TOTAL.json")
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
-      if (!d || !d.count) return;
+      if (!d || !d.count || d.count === "0") return;
       var el = document.getElementById("visits");
       el.textContent = " · " + d.count + " visits";
       el.hidden = false;
