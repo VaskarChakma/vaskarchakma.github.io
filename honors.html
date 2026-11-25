@@ -64,15 +64,26 @@
   <footer class="site-footer">© 2026 Vaskar Chakma · Last updated November 2026<span id="visits" hidden></span></footer>
 </div>
 <script>
-  fetch("https://vaskarchakma.goatcounter.com/counter/TOTAL.json")
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (d) {
-      if (!d || !d.count || d.count === "0") return;
+  (function () {
+    var base = "https://vaskarchakma.goatcounter.com/counter/";
+    var paths = ["/", "/index.html", "/publications.html", "/education.html", "/experience.html", "/honors.html"];
+    var num = function (d) { return d && d.count ? parseInt(String(d.count).replace(/[^0-9]/g, ""), 10) || 0 : 0; };
+    var get = function (path) {
+      return fetch(base + encodeURIComponent(path) + ".json")
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(num)
+        .catch(function () { return 0; });
+    };
+    Promise.all([get("TOTAL")].concat(paths.map(get))).then(function (c) {
+      var total = c[0];
+      var sum = c.slice(1).reduce(function (a, b) { return a + b; }, 0);
+      var n = Math.max(total, sum);
+      if (!n) return;
       var el = document.getElementById("visits");
-      el.textContent = " · " + d.count + " visits";
+      el.textContent = " · " + n.toLocaleString("en-US") + " visits";
       el.hidden = false;
-    })
-    .catch(function () {});
+    });
+  })();
 </script>
 </body>
 </html>
