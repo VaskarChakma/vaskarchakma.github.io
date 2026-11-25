@@ -48,7 +48,7 @@ img { max-width: 100%; display: block; }
   flex-wrap: wrap;
   gap: 4px 24px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   border-bottom: 1px solid var(--rule);
 }
 .site-name {
@@ -143,6 +143,7 @@ details .dated { margin-top: 12px; grid-template-columns: 100px minmax(0, 1fr); 
 @media (max-width: 560px) {
   .page { gap: 40px; padding-top: 16px; }
   .hero { flex-direction: column-reverse; align-items: flex-start; }
+  .site-header { justify-content: flex-start; }
   .site-nav { gap: 0 18px; }
   .hero h1 { font-size: 34px; }
   .portrait { width: 132px; height: 144px; }
